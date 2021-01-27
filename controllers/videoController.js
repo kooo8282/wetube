@@ -1,7 +1,14 @@
 import routes from "../routes"
+import Video from "../models/Video"
 
-export const home = (req, res) => {
-    res.render("home", { pageTitle: "Home", videos }); //now home template has videos Obj.
+export const home = async (req, res) => {
+    try {
+        const videos = await Video.find({});
+        res.render("home", { pageTitle: "Home", videos });
+    } catch (error) {
+        console.log(error);
+        res.render("home", { pageTitle: "Home", videos: [] });
+    }
 
 }
 
@@ -20,8 +27,8 @@ export const getUpload = (req, res) => {
 
 export const postUpload = (req, res) => {
     const {
-        body:{file, title, description}
-        } = req;
+        body: { file, title, description }
+    } = req;
     // To do : Upload and save video
     res.redirect(routes.videoDetail(232325)) //fake id in fake db
 };
