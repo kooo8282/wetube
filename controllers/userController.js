@@ -17,13 +17,13 @@ export const postJoin = async (req, res, next) => {
     } else {
         //To Do: Regisger User
         try {
-            const user = await User.create({
+            const user = await User({ // not User.create because User.register below will do that
                 name,
                 email
             })
-            await User.register(user, password);
+            await User.register(user, password); // User.register => mongoDB{id,name,email,salt,hash,__v}
             next();
-        } catch(error){
+        } catch (error) {
             console.log(error);
             res.redirect(routes.home);
         }
