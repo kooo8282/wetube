@@ -9,7 +9,8 @@ const UserSchema = new mongoose.Schema({
     githubId: Number
 })
 
-UserSchema.plugin(passportoLcalMongoose, {usernameField: "email"});
+// First you need to plugin Passport-Local Mongoose into your User schema
+UserSchema.plugin(passportoLcalMongoose, { usernameField: "email" });
 
 const model = mongoose.model("User", UserSchema);
 
