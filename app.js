@@ -5,6 +5,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import session from "express-session";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
@@ -23,6 +24,11 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(session({
+    secret: process.env.COOKIE_SECRET, // utilize randmokeygen
+    resave: true,
+    saveUninitialized: false
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use((req, res, next) => {
